@@ -10,7 +10,10 @@ public class IndexModel : PageModel
     private readonly AppDbContext _dbContext;
 
     [BindProperty]
-    public string ProfileInfo { get; set; }
+    public string ProfileInfo { get; set; } = "no data";
+
+    [BindProperty]
+    public string EnvironmentName { get; set; } = "no data";
 
     public IndexModel(ILogger<IndexModel> logger, AppDbContext dbContext)
     {
@@ -20,7 +23,16 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-        var profile = _dbContext.Profiles.ToList().First();
-        ProfileInfo = $"[{profile.Id}] {profile.FirstName} {profile.LastName}: {profile.Profession}";
+        var profile = _dbContext.Profiles.ToList().FirstOrDefault();
+        if (profile is null)
+        {
+            ProfileInfo = "no data in database";
+        }
+        else
+        {
+            ProfileInfo = $"[{profile.Id}] {profile.FirstName} {profile.LastName}: {profile.Profession}";    
+        }
+        
+        EnvironmentName = Environment.GetEnvironmentVariable("HOST_NAME") ?? "no data";
     }
 }
