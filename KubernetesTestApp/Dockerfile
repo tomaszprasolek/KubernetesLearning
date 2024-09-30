@@ -7,10 +7,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["KubernetesTestApp/KubernetesTestApp.csproj", "KubernetesTestApp/"]
-RUN dotnet restore "KubernetesTestApp/KubernetesTestApp.csproj"
+COPY ["KubernetesTestApp.csproj", "."]
+RUN dotnet restore "KubernetesTestApp.csproj"
 COPY . .
-WORKDIR "/src/KubernetesTestApp"
+WORKDIR "/src"
 RUN dotnet build "KubernetesTestApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
