@@ -1,8 +1,17 @@
+using KubernetesTestApp.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
+// ===============
+// BUILD THE APP
+// ===============
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
