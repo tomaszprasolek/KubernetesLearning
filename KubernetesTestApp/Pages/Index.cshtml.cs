@@ -15,6 +15,9 @@ public class IndexModel : PageModel
     [BindProperty]
     public string EnvironmentName { get; set; } = "no data";
 
+    [BindProperty]
+    public string AspnetcoreEnvironment { get; set; } = "no data";
+
     public IndexModel(ILogger<IndexModel> logger, AppDbContext dbContext)
     {
         _logger = logger;
@@ -34,5 +37,6 @@ public class IndexModel : PageModel
         }
         
         EnvironmentName = Environment.GetEnvironmentVariable("HOST_NAME") ?? "no data";
+        AspnetcoreEnvironment = Environment.GetEnvironmentVariable("AspnetcoreEnvironment") ?? "no data";
     }
 }
