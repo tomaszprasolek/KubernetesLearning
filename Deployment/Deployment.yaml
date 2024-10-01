@@ -26,10 +26,10 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 80
           resources:
             limits:
               memory: "50Mi"
@@ -45,3 +45,16 @@ spec:
         runAsUser: 1001
         runAsGroup: 1001
         runAsNonRoot: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomo-app-service
+spec:
+  type: ClusterIP
+  selector:
+    app: kubernetestestapp
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 80
