@@ -12,6 +12,14 @@ k8s resources
 - secret - app sensitive data e.g. connection string, password to DB
 - cronJob - job to get current currency value and add it to DB **[???]**
 
+## Docker commands
+
+```
+cd "D:\Kubernetes\KubernetesLearning\KubernetesTestApp"
+docker build -t prasol/kubernetestestapp .
+docker push prasol/kubernetestestapp:latest
+```
+
 ## Docker Desktop settings
 
 ![Docker Desktop WSL settings](/images/docker-desktop-wsl-settings.png)
