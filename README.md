@@ -19,3 +19,4 @@ k8s resources
 ## Links
 - https://woshub.com/move-wsl-another-drive-windows/
 - https://docs.docker.com/get-started/introduction/build-and-push-first-image/#build-and-push-the-image
+- https://medium.com/@iskandre/explanation-of-ports-in-kubernetes-service-a29490515fb2

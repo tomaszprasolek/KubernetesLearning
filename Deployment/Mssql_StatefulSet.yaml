@@ -57,5 +57,5 @@ spec:
     app: kubernetmssqlestestapp
   ports:
     - protocol: TCP
-      port: 3100
+      port: 1433
       targetPort: 1433
