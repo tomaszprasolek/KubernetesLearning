@@ -33,6 +33,13 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
+          env:
+            - name: HOST_NAME
+              value: "kubernetes-pod"
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=tcp:mssql-service,1433;Database=KubernetesTestApp;User Id=sa;Password=Password123#;MultipleActiveResultSets=true;Encrypt=false"
       securityContext:
         seccompProfile:
           type: RuntimeDefault
