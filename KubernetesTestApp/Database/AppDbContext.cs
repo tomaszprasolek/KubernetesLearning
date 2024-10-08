@@ -32,6 +32,8 @@ public class AppDbContext : DbContext
             .IsRequired()
             .HasMaxLength(50);
 
-        base.OnModelCreating(modelBuilder);
+        // Seed data
+        modelBuilder.Entity<Profile>()
+            .HasData(new Profile {Id = 1, FirstName = "John", LastName = "Doe Test", Profession = "programmer"});
     }
 }

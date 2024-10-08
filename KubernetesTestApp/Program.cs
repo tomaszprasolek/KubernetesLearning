@@ -7,12 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+    options
+        .UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
 // ===============
 // BUILD THE APP
 // ===============
 var app = builder.Build();
+
+await MigrateDatabaseAsync(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -32,3 +35,12 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+
+static async Task MigrateDatabaseAsync(WebApplication app)
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    await using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    await dbContext.Database.MigrateAsync();
+}
