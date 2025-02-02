@@ -25,15 +25,8 @@ spec:
      env:
      - name: ACCEPT_EULA
        value: "Y"
-     - name: MSSQL_ENABLE_HADR
-       value: "1"
-     - name: MSSQL_AGENT_ENABLED
-       value: "1"
      - name: MSSQL_SA_PASSWORD
-       valueFrom:
-         secretKeyRef:
-          name: mssql
-          key: MSSQL_SA_PASSWORD
+       value: "Password123#"
      volumeMounts:
      - name: mssql
        mountPath: "/var/opt/mssql"

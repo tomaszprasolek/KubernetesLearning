@@ -1,0 +1,27 @@
+﻿@page
+@model KubernetesTestApp.Pages.EditProfileModel
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Edit Profile</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Profile.Id" />
+    <div class="form-group">
+        <label asp-for="Profile.FirstName" class="control-label"></label>
+        <input asp-for="Profile.FirstName" class="form-control"/>
+        <span asp-validation-for="Profile.FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Profile.LastName" class="control-label"></label>
+        <input asp-for="Profile.LastName" class="form-control"/>
+        <span asp-validation-for="Profile.LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Profile.Profession" class="control-label"></label>
+        <input asp-for="Profile.Profession" class="form-control"/>
+        <span asp-validation-for="Profile.Profession" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

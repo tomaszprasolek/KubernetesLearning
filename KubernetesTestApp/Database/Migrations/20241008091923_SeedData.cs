@@ -12,8 +12,8 @@ namespace KubernetesTestApp.Database.Migrations
         {
             migrationBuilder.InsertData(
                 table: "Profiles",
-                columns: new[] { "Id", "FirstName", "LastName", "Profession" },
-                values: new object[] { 1, "John", "Doe Test", "programmer" });
+                columns: ["Id", "FirstName", "LastName", "Profession"],
+                values: [1, "John", "Doe Test", "programmer"]);
         }
 
         /// <inheritdoc />

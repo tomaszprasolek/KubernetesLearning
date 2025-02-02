@@ -2,8 +2,8 @@
 
 public sealed class Profile
 {
-    public int Id { get; init; }
-    public string FirstName { get; init; }
-    public string LastName { get; init; }
-    public string Profession { get; init; }
+    public int Id { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Profession { get; set; } = string.Empty;
 }

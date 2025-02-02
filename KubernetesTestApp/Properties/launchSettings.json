@@ -28,14 +28,6 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "HOST_NAME": "local_development"
       }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "HOST_NAME": "local_development"
-      }
     }
   }
 }
