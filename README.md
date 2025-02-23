@@ -1,5 +1,27 @@
 # KubernetesLearning
 
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Idea for project using k8s](#idea-for-project-using-k8s)
+- [How to run environment and project](#how-to-run-environment-and-project)
+   * [Prepare k8s environment - minukube](#prepare-k8s-environment---minukube)
+   * [Sample project](#sample-project)
+   * [Create namespace](#create-namespace)
+   * [Prepare secret(s)](#prepare-secrets)
+   * [Create database](#create-database)
+   * [Deploy the config map (application configuration)**](#deploy-the-config-map-application-configuration)
+   * [Deploy the application](#deploy-the-application)
+   * [Test the application](#test-the-application)
+- [How to debug common issues](#how-to-debug-common-issues)
+   * [Problem](#problem)
+   * [Debugging Steps](#debugging-steps)
+   * [Key Takeaways](#key-takeaways)
+- [Docker commands](#docker-commands)
+- [Docker Desktop settings](#docker-desktop-settings)
+- [Links](#links)
+
+<!-- TOC end -->
+
 ## Idea for project using k8s
 
 App with some form that saves data in MSSQL database.
@@ -14,7 +36,7 @@ k8s resources
 
 ## How to run environment and project
 
-### Kubernetes (k8s)
+### Prepare k8s environment - minukube
 
 I use [minikube](https://minikube.sigs.k8s.io/docs/) to run a k8s cluster locally on my computer. It requires a container runtime or virtual machine - in this case, I use [Docker](https://www.docker.com).
 
@@ -33,7 +55,7 @@ Mssql_Secret.yaml
 Mssql_StatefulSet.yaml
 Deployment.yaml
 ```
-**Create namespace**
+### Create namespace
 ```
 kubectl apply -f .\Namespace.yaml
 kubens tomo-app
@@ -42,7 +64,7 @@ The first command creates the namespace, while the second changes the active nam
 
 ---
 
-**Prepare secret(s)**
+### Prepare secret(s)
 ```
 kubectl apply -f .\Mssql_Secret.yaml
 ```
@@ -50,11 +72,11 @@ Expected response in CLI: `secret/mssql created`
 
 ---
 
-**Create database**
+### Create database
 ```
 kubectl apply -f .\Mssql_StatefulSet.yaml
 ```
-Expected response in terminal: 
+Expected response in terminal:
 ```
 statefulset.apps/mssql created
 service/mssql-service created
@@ -70,7 +92,7 @@ mssql   1/1     56s
 ```
 
 ---
-**Deploy the config mat (application configuration)**
+### Deploy the config map (application configuration)
 
 ```
 kubectl apply -f .\ConfigMap.yaml
@@ -78,7 +100,7 @@ kubectl apply -f .\ConfigMap.yaml
 Expected response in CLI: `configmap/cm-app-config created`
 
 ---
-**Deploy the application**
+### Deploy the application
 
 ```
 kubectl apply -f .\Deployment.yaml
@@ -92,7 +114,7 @@ To verify if the application is running, use:
 ```
 kubectl get pod
 ```
-Expected output: 
+Expected output:
 ```
 NAME                                 READY   STATUS    RESTARTS   AGE
 kubernetestestapp-744fd9ffd4-ttvpj   1/1     Running   0          16s
@@ -102,7 +124,7 @@ mssql-0                              1/1     Running   0          103s
 `mssql-0` is our database pod, also with status `Running`. Now we can verify if everything works properly.
 
 ---
-**Test the application**
+### Test the application
 
 Since the application is running in the kubernetes cluster, we need to use port-forwarding to access it:
 ```
@@ -134,9 +156,9 @@ The application pod was created but didn't start and showed no logs when using `
     ```
 
 2. Pay special attention to:
-    - Pod Status (in this case `Pending`)
-    - Container State (shows `Waiting` with `CreateContainerConfigError`)
-    - Events section at the bottom (reveals the root cause)
+   - Pod Status (in this case `Pending`)
+   - Container State (shows `Waiting` with `CreateContainerConfigError`)
+   - Events section at the bottom (reveals the root cause)
 
 In this example, the Events section showed:
 
