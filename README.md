@@ -40,11 +40,15 @@ kubens tomo-app
 ```
 The first command creates the namespace, while the second changes the active namespace in kubectl. Note: [Kubens](https://github.com/ahmetb/kubectx) is an additional tool (not built-in) that I installed to quickly switch between contexts and namespaces in k8s.
 
+---
+
 **Prepare secret(s)**
 ```
 kubectl apply -f .\Mssql_Secret.yaml
 ```
 Expected response in CLI: `secret/mssql created`
+
+---
 
 **Create database**
 ```
@@ -64,7 +68,18 @@ You should see output similar to:
 NAME    READY   AGE
 mssql   1/1     56s
 ```
+
+---
+**Deploy the config mat (application configuration)**
+
+```
+kubectl apply -f .\ConfigMap.yaml
+```
+Expected response in CLI: `configmap/cm-app-config created`
+
+---
 **Deploy the application**
+
 ```
 kubectl apply -f .\Deployment.yaml
 ```
@@ -86,6 +101,7 @@ mssql-0                              1/1     Running   0          103s
 `kubernetestestapp-744fd9ffd4-ttvpj` is our application pod with status `Running`.  
 `mssql-0` is our database pod, also with status `Running`. Now we can verify if everything works properly.
 
+---
 **Test the application**
 
 Since the application is running in the kubernetes cluster, we need to use port-forwarding to access it:
@@ -100,6 +116,41 @@ Forwarding from [::1]:8080 -> 8080
 This indicates that the application is now accessible at `localhost:8080`.
 
 ![Working app](/images/locahost-workingApp.png)
+
+## How to debug common issues
+
+In this example, I'll demonstrate how to troubleshoot when your Kubernetes application fails to start due to a missing ConfigMap.
+
+### Problem
+
+The application pod was created but didn't start and showed no logs when using `kubectl logs`.
+
+### Debugging Steps
+
+1. When `kubectl logs` shows no output, examine the pod details using:
+
+    ```bash
+    kubectl describe pod <pod-name>
+    ```
+
+2. Pay special attention to:
+    - Pod Status (in this case `Pending`)
+    - Container State (shows `Waiting` with `CreateContainerConfigError`)
+    - Events section at the bottom (reveals the root cause)
+
+In this example, the Events section showed:
+
+```
+Warning  Failed     37s (x8 over 2m6s)   kubelet            Error: configmap "cm-app-config" not found
+```
+
+This clearly indicates that the application failed because the required ConfigMap cm-app-config was not deployed.
+
+### Key Takeaways
+
+- When pods don't start, `kubectl describe pod` is your first debugging tool
+- The Events section often contains the root cause of the failure
+- Check for missing resources (ConfigMaps, Secrets, etc.) when you see ConfigError messages
 
 ## Docker commands
 

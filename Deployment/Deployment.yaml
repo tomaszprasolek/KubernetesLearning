@@ -39,7 +39,17 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Development"
             - name: ConnectionStrings__DefaultConnection
-              value: "Server=tcp:mssql-service,1433;Database=KubernetesTestApp;User Id=sa;Password=Password123#;MultipleActiveResultSets=true;Encrypt=false"
+              value: "Server=tcp:mssql-service.tomo-app.svc.cluster.local,1433;Database=KubernetesTestApp;User Id=sa;Password=Password123#;MultipleActiveResultSets=true;Encrypt=false"
+            - name: FeatureNr1
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-app-config
+                  key: feature_nr_1
+            - name: FeatureNr2
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-app-config
+                  key: feature_nr_2
       securityContext:
         seccompProfile:
           type: RuntimeDefault

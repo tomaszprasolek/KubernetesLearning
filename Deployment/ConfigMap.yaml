@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-app-config
+data:
+  # property-like keys; each key maps to a simple value
+  feature_nr_1: "enabled"
+  feature_nr_2: "disabled"

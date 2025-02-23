@@ -17,6 +17,12 @@ public class IndexModel : PageModel
     [BindProperty]
     public string ConnectionString { get; set; } = "no data";
 
+    [BindProperty]
+    public string Feature1 { get; set; } = "no data";
+
+    [BindProperty]
+    public string Feature2 { get; set; } = "no data";
+
     public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
     {
         _logger = logger;
@@ -29,5 +35,7 @@ public class IndexModel : PageModel
         AspnetcoreEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "no data [ASPNETCORE_ENVIRONMENT]";
         ConnectionString = _configuration["ConnectionStrings:DefaultConnection"] ?? "no data [Connection string]";
 
+        Feature1 = _configuration["FeatureNr1"] ?? "no data [Feature1]";
+        Feature2 = _configuration["FeatureNr2"] ?? "no data [Feature2]";
     }
 }
