@@ -26,9 +26,9 @@ spec:
           #     port: 80
           resources:
             limits:
-              memory: "50Mi"
+              memory: "256Mi"
             requests:
-              memory: "50Mi"
+              memory: "128Mi"
               cpu: "250m"
           securityContext:
             allowPrivilegeEscalation: false

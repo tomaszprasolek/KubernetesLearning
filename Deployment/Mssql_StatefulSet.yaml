@@ -47,7 +47,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: kubernetmssqlestestapp
+    app: mssql  # This should match the label on your mssql pods
   ports:
     - protocol: TCP
       port: 1433
