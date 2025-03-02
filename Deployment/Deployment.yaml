@@ -39,7 +39,15 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Development"
             - name: ConnectionStrings__DefaultConnection
-              value: "Server=tcp:mssql-service.tomo-app.svc.cluster.local,1433;Database=KubernetesTestApp;User Id=sa;Password=Password123#;MultipleActiveResultSets=true;Encrypt=false"
+              valueFrom:
+                secretKeyRef:
+                  name: tomo-app-secrets
+                  key: connection-string
+            - name: SecretValue
+              valueFrom:
+                secretKeyRef:
+                  name: tomo-app-secrets
+                  key: some-secret-value
             - name: FeatureNr1
               valueFrom:
                 configMapKeyRef:

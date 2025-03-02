@@ -17,6 +17,9 @@ public class IndexModel : PageModel
     [BindProperty]
     public string ConnectionString { get; set; } = "no data";
 
+    [BindProperty] 
+    public string SomeSecretValue { get; set; } = "no data";
+
     [BindProperty]
     public string Feature1 { get; set; } = "no data";
 
@@ -31,10 +34,15 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
+        // From deployment
         EnvironmentName = Environment.GetEnvironmentVariable("HOST_NAME") ?? "no data [HOST_NAME]";
         AspnetcoreEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "no data [ASPNETCORE_ENVIRONMENT]";
-        ConnectionString = _configuration["ConnectionStrings:DefaultConnection"] ?? "no data [Connection string]";
 
+        // Secrets
+        ConnectionString = _configuration["ConnectionStrings:DefaultConnection"] ?? "no data [Connection string]";
+        SomeSecretValue = _configuration["SecretValue"] ?? "no data [SecretValue]";
+
+        // Config map
         Feature1 = _configuration["FeatureNr1"] ?? "no data [Feature1]";
         Feature2 = _configuration["FeatureNr2"] ?? "no data [Feature2]";
     }

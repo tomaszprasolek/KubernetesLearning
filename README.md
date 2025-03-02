@@ -24,15 +24,16 @@
 
 ## Idea for project using k8s
 
-App with some form that saves data in MSSQL database.
-Simple form - user profile.
+Create simple web app that uses Kubernetes underneath to show how Kubernetes works using it basic components. Show how some features can be done with Kubernets.
 
-k8s resources
-- service, deployment, pod - run the service + DB pod
-- persistent volume - database
-- config map - app configuration
-- secret - app sensitive data e.g. connection string, password to DB
-- cronJob - job to get current currency value and add it to DB **[???]**
+The app is written in C#, I used ASP.NET Razor Pages with MSSQL database to store data.
+App has very (very very) simple profile form that save/update data in MSSSQL database.
+
+k8s resources used:
+- **Namespace** - to put all my app components in one group, that groups are called namespaces in k8s
+- **StatefulSet** - database
+- **ConfigMap** - app configuration
+- **Secret** - app sensitive data e.g. connection string, password to DB
 
 ## How to run environment and project
 
@@ -54,6 +55,7 @@ Namespace.yaml
 Mssql_Secret.yaml
 Mssql_StatefulSet.yaml
 Deployment.yaml
+ConfigMap.yaml
 ```
 ### Create namespace
 ```
@@ -62,6 +64,9 @@ kubens tomo-app
 ```
 The first command creates the namespace, while the second changes the active namespace in kubectl. Note: [Kubens](https://github.com/ahmetb/kubectx) is an additional tool (not built-in) that I installed to quickly switch between contexts and namespaces in k8s.
 
+From [documantation](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/):  
+*namespaces provide a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects (e.g. Deployments, Services, etc.) and not for cluster-wide objects (e.g. StorageClass, Nodes, PersistentVolumes, etc.).*
+
 ---
 
 ### Prepare secret(s)
@@ -69,6 +74,9 @@ The first command creates the namespace, while the second changes the active nam
 kubectl apply -f .\Mssql_Secret.yaml
 ```
 Expected response in CLI: `secret/mssql created`
+
+From [documentation](https://kubernetes.io/docs/concepts/configuration/secret/)  
+*A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in a container image. Using a Secret means that you don't need to include confidential data in your application code.*
 
 ---
 
@@ -185,6 +193,11 @@ docker push prasol/kubernetestestapp:latest
 ## Docker Desktop settings
 
 ![Docker Desktop WSL settings](/images/docker-desktop-wsl-settings.png)
+
+## TODO
+
+- [ ] cronJob - job to get current currency value and add it to DB
+- [ ] ingress - does not work on my machine with Win11 and on minikube
 
 ## Links
 - https://woshub.com/move-wsl-another-drive-windows/

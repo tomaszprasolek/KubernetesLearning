@@ -5,11 +5,21 @@
 }
 
 <div class="text-center">
-    <h3>Environment: @Model.EnvironmentName</h3>
-    <h3>ASPNETCORE_ENVIRONMENT: @Model.AspnetcoreEnvironment</h3>
-    <h4>@Model.ConnectionString</h4>
+    <p>
+        <h3>Values from "Mssql_Secret.yaml" file</h3>
+        <b>Connection string:</b> @Model.ConnectionString (it is base64 encoded in file)<br/>
+        <b>Some secret value:</b> @Model.SomeSecretValue (it is in plain text in yaml file)<br />
+    </p>
+    <hr />
+    <p>
+        <h3>Values from "Deployment.yaml" file (pod configuration)</h3>
+        <b>Environment:</b> @Model.EnvironmentName<br />
+        <b>ASPNETCORE_ENVIRONMENT:</b> @Model.AspnetcoreEnvironment<br />
+    </p>
     <hr/>
-    <b>Feature flags:</b>
-    <p>Feature flag #1: @Model.Feature1</p>
-    <p>Feature flag #2: @Model.Feature2</p>
+    <p>
+        <h3>Values from "ConfigMap.yaml" file</h3>
+        <b>Feature flag #1:</b> @Model.Feature1<br />
+        <b>Feature flag #2:</b> @Model.Feature2<br />
+    </p>
 </div>
