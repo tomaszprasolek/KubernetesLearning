@@ -198,6 +198,7 @@ docker push prasol/kubernetestestapp:latest
 
 - [ ] cronJob - job to get current currency value and add it to DB
 - [ ] ingress - does not work on my machine with Win11 and on minikube
+- [ ] HELM charts - what is it? how it works?
 
 ## Links
 - https://woshub.com/move-wsl-another-drive-windows/
