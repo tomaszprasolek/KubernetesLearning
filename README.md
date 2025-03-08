@@ -196,6 +196,7 @@ docker push prasol/kubernetestestapp:latest
 
 ## TODO
 
+- [ ] names, labels, matchlabes - what is it? how it works? why it is important
 - [ ] cronJob - job to get current currency value and add it to DB
 - [ ] ingress - does not work on my machine with Win11 and on minikube
 - [ ] HELM charts - what is it? how it works?
