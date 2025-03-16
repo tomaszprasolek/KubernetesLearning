@@ -1,5 +1,7 @@
 # KubernetesLearning
 
+[![Build and push to DockerHub](https://github.com/tomaszprasolek/KubernetesLearning/actions/workflows/dotnet.yml/badge.svg)](https://github.com/tomaszprasolek/KubernetesLearning/actions/workflows/dotnet.yml)
+
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [Idea for project using k8s](#idea-for-project-using-k8s)
