@@ -29,7 +29,8 @@ jobs:
       id: next-version
       uses: flatherskevin/semver-action@v1
       with:
-        type: patch
+         incrementLevel: patch
+         source: tags
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -44,4 +45,4 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/kubernetestestapp:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/kubernetestestapp:${{ steps.next-version.outputs.next }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/kubernetestestapp:${{ steps.next-version.outputs.nextVersion }}
